@@ -9,7 +9,7 @@ public class Card
     public int Id{get;set;}
     
     [Required(AllowEmptyStrings = false)]
-    [Length(2, 50, ErrorMessage ="Must be between 2 and 50")]
+    [Length(1, 50, ErrorMessage ="Name Must be between 2 and 50")]
     public string? Name{get; set;}
     [Required]
     public int StartNumber{get; set;}

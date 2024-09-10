@@ -35,7 +35,6 @@
 
     private decimal Sum{get; set;}
 
-
     private decimal CardTotal{get; set;}
 
     protected override async Task OnInitializedAsync()
@@ -48,7 +47,7 @@
                 await ScratcherDb.SaveCardAsync(x);
             }
         }
-       await RefreshCardList(); 
+        await RefreshCardList(); 
 
     }
 
@@ -61,18 +60,15 @@
     protected override async Task OnParametersSetAsync()
     {
         await RefreshCardList();
-        if(AllCards is null)
+        if (AllCards is null)
         {
             CardTotal = 0;
 
         }
-
-        foreach(var x in AllCards)
+        else
         {
-            CardTotal = (x.EndNumber - x.StartNumber) * x.TicketPrice;
-            Sum += CardTotal;
+            await GetSum();
         }
-
 
         await Task.CompletedTask;
     }
@@ -96,11 +92,25 @@
             return;
         }
 
-       
-       await ScratcherDb.DeleteCardAsync(card);
-       await RefreshCardList();
+
+        await ScratcherDb.DeleteCardAsync(card);
+        await RefreshCardList();
+        await GetSum();
         
-       //NavigationManager.NavigateTo("/");
+    }
+
+    private async Task GetSum()
+    {
+        Sum = 0;
+        await RefreshCardList();
+        if (AllCards is not null)
+        {
+            foreach (var x in AllCards)
+            {
+                CardTotal = (x.EndNumber - x.StartNumber) * x.TicketPrice;
+                Sum += CardTotal;
+            }
+        }
     }
 
 private static  List<Card> InitialList()
