@@ -43,16 +43,16 @@ public class ScratcherDb: IScratcherDb
 
     public async Task<int> SaveCardAsync(Card item)
     {
+        await Init();        
+        item.Id = 0;
+        return await Database.InsertAsync(item);
+        
+    }
+
+    public async Task<int> UpdateCardAsync(Card item)
+    {
         await Init();
-        if (item.Id != 0)
-        {
-            return await Database.UpdateAsync(item);
-        }
-        else
-        {
-            item.Id = 0;
-            return await Database.InsertAsync(item);
-        }
+        return await Database.UpdateAsync(item);
     }
 
     public async Task<int> DeleteCardAsync(Card item)

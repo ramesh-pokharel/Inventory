@@ -7,8 +7,10 @@ public class Card
 {
     [PrimaryKey, AutoIncrement]
     public int Id{get;set;}
-    [Required]
-    public string? Name{get; set;}= string.Empty;
+    
+    [Required(AllowEmptyStrings = false)]
+    [Length(2, 50, ErrorMessage ="Must be between 2 and 50")]
+    public string? Name{get; set;}
     [Required]
     public int StartNumber{get; set;}
     [Required]
@@ -16,14 +18,4 @@ public class Card
     [Required]
     public decimal TicketPrice{get; set;}
 
-    /*
-    public decimal Amount
-    {
-        get => _amount;
-        set => _amount = (EndNumber - StartNumber)* TicketPrice;
-    }
-
-    private decimal _amount;
-
-    */
 }

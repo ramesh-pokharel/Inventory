@@ -62,11 +62,11 @@
 
 @code
 {
-        [SupplyParameterFromForm]
-        public Card? UpdatedCard{get; set;}
+    [SupplyParameterFromForm]
+    public Card? UpdatedCard{get; set;}
 
-        [Parameter]
-        public int UpdatedCardId{get; set;}
+    [Parameter]
+    public int UpdatedCardId{get; set;}
 
     protected bool IsSaved = false;
     private string Message = string.Empty;
@@ -93,15 +93,17 @@
 
         if(UpdatedCard != null)
         {
+            /*
             Card cardToUpdate = new Card();
+            cardToUpdate.Id = UpdatedCard.Id;
             cardToUpdate.Name = UpdatedCard.Name;
             cardToUpdate.StartNumber = UpdatedCard.StartNumber;
             cardToUpdate.EndNumber = UpdatedCard.EndNumber;
             cardToUpdate.TicketPrice = UpdatedCard.TicketPrice;
-            Message = "Scratch Card updated successfully."; 
-
-            
-            int rowsUpdated = await ScratcherDb.SaveCardAsync(cardToUpdate);
+            Message = "Scratch Card updated successfully.";   
+            int rowsUpdated = await ScratcherDb.UpdateCardAsync(cardToUpdate);
+            */
+           int rowsUpdated = await ScratcherDb.UpdateCardAsync(UpdatedCard);
             if(rowsUpdated == 0)
             {
                 Message = "Card Not Updated.";

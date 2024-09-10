@@ -11,7 +11,8 @@
 @if(Scratcher is not null)
 {
     <EditForm Enhance Model="@Scratcher"
-        OnSubmit="@HandleSubmit"
+        OnValidSubmit="@HandleSubmit"
+        OnInvalidSubmit="@HandleInvalidSubmit"
         FormName="AddCardForm">
         <DataAnnotationsValidator />
         <ValidationSummary/>
@@ -81,14 +82,16 @@
             await ScratcherDb.SaveCardAsync(Scratcher);  
             IsSaved = true;
             Message = "Car added Successfully.";
-            
+
             NavigateToHome();
         }
-        else
-        {
-            IsSaved = false;
-            Message = "There are some Validation errors";
-        }
+
+        await Task.CompletedTask;
+    }
+    private async Task HandleInvalidSubmit()
+    {
+        IsSaved = false;
+        Message = "There are some Validation errors";
         await Task.CompletedTask;
     }
 

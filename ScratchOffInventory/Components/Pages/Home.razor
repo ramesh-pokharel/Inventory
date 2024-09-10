@@ -3,33 +3,35 @@
 @inject NavigationManager NavigationManager
 
 
-<PageTitle>Home</PageTitle>
+<PageTitle>ScratchOff Inventory</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>ScratchOff Inventory</h1>
 
-Welcome to your new app.
 <br />
 <h3>Scartch Card List</h3>
 <div>
-    <QuickGrid Items="@AllCards"Class="table table-striped">
-        <PropertyColumn Property="@(card => card.Id)" Title="Card-Id" />
-        <PropertyColumn Property="@(card => card.Name)" />
-        <PropertyColumn Property="@(card => card.StartNumber)" />
-        <PropertyColumn Property="@(card => card.EndNumber)" />
-        <PropertyColumn Property="@(card => card.TicketPrice)" Title="Ticket Price" />
-        <PropertyColumn Property="@(card => (card.EndNumber - card.StartNumber) * card.TicketPrice)" Title="Amount" />
-        <TemplateColumn Title="Actions">
-            <button @onclick="@(() => HandleEdit(context.Id))">Edit</button>
+    <QuickGrid Items="@AllCards"Class="table table-striped" Pagination="@pagination">
+        <PropertyColumn Property="@(card => card.Id)" Title="Card-Id" Sortable="true" Align="Align.Center" />
+        <PropertyColumn Property="@(card => card.Name)" Sortable="true" Align="Align.Center" />
+        <PropertyColumn Property="@(card => card.StartNumber)" Sortable="true" Align="Align.Center" />
+        <PropertyColumn Property="@(card => card.EndNumber)" Sortable="true" Align="Align.Center" />
+        <PropertyColumn Property="@(card => card.TicketPrice)" Title="Ticket Price" Sortable="true" Align="Align.Center" />
+        <PropertyColumn Property="@(card => (card.EndNumber - card.StartNumber) * card.TicketPrice)" Title="Amount" Sortable="true" Align="Align.Center" />
+        <TemplateColumn Title="Update" Align="Align.Center">
+            <button @onclick="@(() => HandleEdit(context.Id))">Edit</button>          
+        </TemplateColumn>
+        <TemplateColumn Title="Delete" Align="Align.Center">
             <button @onclick="@(() => HandleDeleteAsync(context))">Delete</button>
         </TemplateColumn>
         
     </QuickGrid>
+    <Paginator State="@pagination" />
 </div>
 <div>Total Amount = @Sum.ToString("C2")</div>
 @code
 {
+    PaginationState pagination = new PaginationState { ItemsPerPage = 15 };
     private IQueryable<Card>? AllCards{get; set;}
-
 
     private decimal Sum{get; set;}
 
@@ -105,11 +107,31 @@ private static  List<Card> InitialList()
     {
         List<Card> cards = new()
             {
-                new Card{Name = "a", StartNumber = 1, EndNumber = 35, TicketPrice = 5},
-                new Card{Name = "b", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
-                new Card{Name = "c", StartNumber = 3, EndNumber = 34, TicketPrice = 10},
-                new Card{Name = "d", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
-                new Card{Name = "e", StartNumber = 0, EndNumber = 0, TicketPrice = 0}     
+                new Card{Name = "Scratcher 1", StartNumber = 1, EndNumber = 35, TicketPrice = 5},
+                new Card{Name = "Scratcher 2", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 3", StartNumber = 3, EndNumber = 34, TicketPrice = 10},
+                new Card{Name = "Scratcher 4", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 5", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 6", StartNumber = 1, EndNumber = 35, TicketPrice = 5},
+                new Card{Name = "Scratcher 7", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 8", StartNumber = 3, EndNumber = 34, TicketPrice = 10},
+                new Card{Name = "Scratcher 9", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 10", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 11", StartNumber = 1, EndNumber = 35, TicketPrice = 5},
+                new Card{Name = "Scratcher 12", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 13", StartNumber = 3, EndNumber = 34, TicketPrice = 10},
+                new Card{Name = "Scratcher 14", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 15", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 16", StartNumber = 1, EndNumber = 35, TicketPrice = 5},
+                new Card{Name = "Scratcher 17", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 18", StartNumber = 3, EndNumber = 34, TicketPrice = 10},
+                new Card{Name = "Scratcher 19", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 20", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 21", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 22", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 23", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 24", StartNumber = 0, EndNumber = 0, TicketPrice = 0},
+                new Card{Name = "Scratcher 25", StartNumber = 0, EndNumber = 0, TicketPrice = 0}
 
             };
             return cards;
