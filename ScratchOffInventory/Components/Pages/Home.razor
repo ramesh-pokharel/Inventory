@@ -8,7 +8,7 @@
 <h1>ScratchOff Inventory</h1>
 
 <br />
-<h3>Scartch Card List</h3>
+<h3>Scartch Card List - Date: @todaysDate</h3>
 <div>
     <QuickGrid Items="@AllCards"Class="table table-striped" Pagination="@pagination">
         <PropertyColumn Property="@(card => card.Id)" Title="Card-Id" Sortable="true" Align="Align.Center" />
@@ -30,6 +30,7 @@
 <div>Total Amount = @Sum.ToString("C2")</div>
 @code
 {
+    private string todaysDate = DateTime.Now.ToShortDateString();
     PaginationState pagination = new PaginationState { ItemsPerPage = 15 };
     private IQueryable<Card>? AllCards{get; set;}
 
