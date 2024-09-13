@@ -1,0 +1,19 @@
+@echo off
+setlocal
+
+::set path to sqlite database file
+set DB_PATH=C:\Users\sid\Documents\ScratchOff.db3
+
+::Get current date in YYYYMMDD format
+for /f "tokens=2 delims==" %%i in ('"wmic os get localdatetime /value"') do set datetime=%%i
+set DATE=%datetime:~0,8%
+
+::set path to backup location
+set CSV_PATH=C:\Users\sid\Desktop\backup\data_%DATE%.csv
+
+::perform backup
+sqlite3 %DB_PATH% ".headers on" ".mode csv" ".output %CSV_PATH%" "SELECT * FROM card;"
+
+echo Export to csv successful.
+
+endlocal
